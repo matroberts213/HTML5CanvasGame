@@ -144,6 +144,12 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
+document.addEventListener("touchmove", function(e) {
+  var touchLocation = e.targetTouches[0];
+  paddleX.style.left = touchLocation.pageX + "px";
+  paddleX.style.right = touchLocation.pageX + "px";
+});
+
 function keyDownHandler(e) {
   if (e.key == "Right" || e.key == "ArrowRight") {
     rightPressed = true;
