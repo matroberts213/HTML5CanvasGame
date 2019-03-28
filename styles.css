@@ -2,6 +2,10 @@ body {
   background-color: #3ca7d1;
 }
 
+#myCanvas {
+  width: 58%;
+}
+
 * {
   padding: 0;
   margin: 0;
