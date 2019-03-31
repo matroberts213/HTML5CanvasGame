@@ -1,5 +1,5 @@
-// I have added " // * " above the code I have added or changed.
-// I have change certain values throughout as well.
+// I have added an asterix" * " above the code I have added or changed.
+// I have changed certain values throughout.
 
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
@@ -54,6 +54,8 @@ function keyUpHandler(e) {
   }
 }
 
+// *
+// resets paddle position based on mouse movement
 function mouseMoveHandler(e) {
   var relativeX = e.clientX - canvas.offsetLeft;
   if (relativeX > 0 && relativeX < canvas.width) {
@@ -61,6 +63,7 @@ function mouseMoveHandler(e) {
   }
 }
 
+// detects collision with bricks
 function collisionDetection() {
   for (var c = 0; c < brickColumnCount; c++) {
     for (var r = 0; r < brickRowCount; r++) {
@@ -90,11 +93,12 @@ function collisionDetection() {
 }
 
 // *
-//This function generates a random integer between "min and max"
+// This function generates a random integer between "min and max"
 const random = (min, max) => {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
+// ball
 function drawBall() {
   context.beginPath();
   context.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -103,6 +107,7 @@ function drawBall() {
   context.closePath();
 }
 
+// paddle
 function drawPaddle() {
   context.beginPath();
   context.rect(
@@ -116,6 +121,7 @@ function drawPaddle() {
   context.closePath();
 }
 
+// bricks grid
 function drawBricks() {
   for (var c = 0; c < brickColumnCount; c++) {
     for (var r = 0; r < brickRowCount; r++) {
@@ -135,7 +141,7 @@ function drawBricks() {
 }
 
 // *
-//This function will set a timer to cause the interface to "blink". (This will be used when a life is lost.)
+// This function will set a timer to cause the interface to "blink". (This will be used when a life is lost.)
 function blink() {
   var f = document.getElementById("myCanvas");
   setTimeout(function() {
@@ -145,22 +151,20 @@ function blink() {
     f.style.display = f.style.display == "none" ? "" : "none";
   }, 200);
 }
-
-// *
+// score
 function drawScore() {
   context.font = "18px Lucida Console, Courier, monospace";
   context.fillStyle = "#016d0d";
   context.fillText("Score: " + score, 8, 20);
 }
-
-// *
+// lives
 function drawLives() {
   context.font = "18px Lucida Console, Courier, monospace;";
   context.fillStyle = "#016d0d";
   context.fillText("Lives: " + lives, canvas.width - 95, 20);
 }
 
-//this is where the magic happens
+// this is where the magic happens
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   drawBricks();
@@ -178,7 +182,7 @@ function draw() {
     dy = -dy;
   } else if (y + dy > canvas.height - ballRadius) {
     if (x > paddleX && x < paddleX + paddleWidth) {
-      dy = -dy;
+      dy = -dy - 1;
       dx += random(-3, 3); // (min,max) values from the random() function
     } else {
       lives--;
@@ -189,10 +193,14 @@ function draw() {
         alert("GAME OVER" + "\n" + "\n" + "YOUR SCORE: " + score);
         document.location.reload();
       } else {
+        // resets position of ball
         x = canvas.width / 2;
-        y = canvas.height / 2;
-        dx = dx;
-        dy = dy;
+        y = canvas.height - 30;
+        // *
+        // flips direction of ball
+        dx = -dx;
+        dy = -dy;
+        // resets position of paddle
         paddleX = (canvas.width - paddleWidth) / 2;
       }
     }
@@ -201,12 +209,14 @@ function draw() {
   x += dx;
   y += dy;
 
-  //*
+  // *
+  // controls left/right keys for paddle
   if (rightPressed && paddleX < canvas.width - paddleWidth) {
     paddleX += 15;
   } else if (leftPressed && paddleX > 0) {
     paddleX -= 15;
   }
+
   requestAnimationFrame(draw);
 }
 
