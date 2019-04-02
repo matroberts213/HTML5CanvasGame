@@ -23,6 +23,7 @@ var brickOffsetTop = 40;
 var brickOffsetLeft = 20;
 var score = 0;
 var lives = 3;
+var scrollValue = 100;
 
 canvas.height = canvas.width * canvasHeightRatio;
 
@@ -93,7 +94,7 @@ function collisionDetection() {
 }
 
 // *
-// This function generates a random integer between "min and max"
+// This function generates a random integer between "min and max" - it's what puts the 'silly' in silly ball.
 const random = (min, max) => {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
@@ -167,6 +168,10 @@ function drawLives() {
 // this is where the magic happens
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height);
+
+  // *
+  // This line sets the default scroll position (but consequently locks the scroll). Helps those with large screens.
+
   drawBricks();
   drawBall();
   drawPaddle();
@@ -211,9 +216,9 @@ function draw() {
 
   // *
   // controls left/right keys for paddle
-  if (rightPressed && paddleX < canvas.width - paddleWidth) {
+  if (rightPressed && paddleX < canvas.width - (paddleWidth + 10)) {
     paddleX += 15;
-  } else if (leftPressed && paddleX > 0) {
+  } else if (leftPressed && paddleX > 11) {
     paddleX -= 15;
   }
 

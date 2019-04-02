@@ -3,7 +3,7 @@ body {
 }
 
 #myCanvas {
-  width: 58%;
+  width: 49%;
 }
 
 * {
@@ -20,12 +20,12 @@ canvas {
 .title {
   font-family: monospace;
   text-align: center;
-  padding: 20px;
+  padding: 7px;
 }
 
 #instructions {
   line-height: 2em;
-  padding: 10px;
+  padding: 7px;
   margin: 0 auto;
   text-align: center;
   font-size: 14px;
@@ -38,7 +38,7 @@ canvas {
 }
 
 #footer {
-  padding: 20px;
+  padding: 15px;
   width: 700px;
   margin: 0 auto;
   text-align: center;
