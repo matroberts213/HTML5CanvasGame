@@ -24,7 +24,7 @@ var brickOffsetLeft = 20;
 var score = 0;
 var lives = 3;
 var scrollValue = 100;
-var paused = false;
+var paused = true;
 
 canvas.height = canvas.width * canvasHeightRatio;
 
@@ -78,15 +78,28 @@ function pauseGameKeyHandler(e) {
   switch (keyCode) {
     case 32: //space
       togglePause();
+
       break;
   }
 }
 
 //*
-// pause function which runs the draw function based on the value of the paused variable.
+// pause function
 function togglePause() {
   paused = !paused;
   draw();
+}
+
+//*
+function pauseText() {
+  context.font = "18px Lucida Console, Courier, monospace";
+  context.fillStyle = "#016d0d";
+  context.textAlign = "center";
+  context.fillText(
+    "PAUSED (SPACEBAR to RESUME)",
+    canvas.width / 2,
+    canvas.height / 2
+  );
 }
 
 // detects collision with bricks
@@ -180,13 +193,15 @@ function blink() {
 function drawScore() {
   context.font = "18px Lucida Console, Courier, monospace";
   context.fillStyle = "#016d0d";
-  context.fillText("Score: " + score, 8, 20);
+  context.textAlign = "center";
+  context.fillText("Score: " + score, canvas.width / 9, canvas.height / 17);
 }
 // lives
 function drawLives() {
   context.font = "18px Lucida Console, Courier, monospace;";
   context.fillStyle = "#016d0d";
-  context.fillText("Lives: " + lives, canvas.width - 95, 20);
+  context.textAlign = "center";
+  context.fillText("Lives: " + lives, canvas.width / 1.12, canvas.height / 17);
 }
 
 // this is where the magic happens
@@ -242,7 +257,9 @@ function draw() {
   } else if (leftPressed && paddleX > 11) {
     paddleX -= 15;
   }
-  if (!paused) {
+  if (paused) {
+    pauseText();
+  } else {
     requestAnimationFrame(draw);
   }
 }
