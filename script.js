@@ -24,6 +24,7 @@ var brickOffsetLeft = 20;
 var score = 0;
 var lives = 3;
 var scrollValue = 100;
+var paused = false;
 
 canvas.height = canvas.width * canvasHeightRatio;
 
@@ -65,6 +66,27 @@ function mouseMoveHandler(e) {
   ) {
     paddleX = relativeX - paddleWidth / 2;
   }
+}
+
+//*
+window.addEventListener("keydown", pauseGameKeyHandler, false);
+
+//*
+// Key handler to activate pause function once space key is pressed
+function pauseGameKeyHandler(e) {
+  var keyCode = e.keyCode;
+  switch (keyCode) {
+    case 32: //space
+      togglePause();
+      break;
+  }
+}
+
+//*
+// pause function which runs the draw function based on the value of the paused variable.
+function togglePause() {
+  paused = !paused;
+  draw();
 }
 
 // detects collision with bricks
@@ -220,8 +242,9 @@ function draw() {
   } else if (leftPressed && paddleX > 11) {
     paddleX -= 15;
   }
-
-  requestAnimationFrame(draw);
+  if (!paused) {
+    requestAnimationFrame(draw);
+  }
 }
 
 draw();
