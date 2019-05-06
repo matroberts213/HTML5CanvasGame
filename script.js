@@ -76,7 +76,7 @@ window.addEventListener("keydown", pauseGameKeyHandler, false);
 function pauseGameKeyHandler(e) {
   var keyCode = e.keyCode;
   switch (keyCode) {
-    case 32: //space
+    case 80: //p
       togglePause();
 
       break;
@@ -96,7 +96,7 @@ function pauseText() {
   context.fillStyle = "#016d0d";
   context.textAlign = "center";
   context.fillText(
-    "PAUSED (SPACEBAR to RESUME)",
+    "PAUSED (PRESS 'P' to RESUME)",
     canvas.width / 2,
     canvas.height / 2
   );
